@@ -6,5 +6,5 @@ Currently works only on Windows system.\
 Please place tab data with the same folder as the app.\
 If encounter "No Java found" error while opening,\
 one could download Java Runtime Environment from:\
-https://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html\
+https://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html \
 rename the folder to 'jre' and place it with the same folder as the app.
