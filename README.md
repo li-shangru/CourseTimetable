@@ -2,7 +2,7 @@
 Simple course timetable application with GPA calculator function.\
 Written in Java, using Java Swing.\
 Currently works only on Windows system.\
-\application contains compiled version and sample tabs.\
+\application contains compiled versions.\
 Please place tab data with the same folder as the app.\
 If encounter "No Java found" error while opening,\
 one could download Java Runtime Environment from:\

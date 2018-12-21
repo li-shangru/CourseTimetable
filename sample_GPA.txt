@@ -1,0 +1,12 @@
+Course Timetable||sample_GPA
+A-F(+)     0-9
+EECS1012---3.0---A+
+EECS1022---3.0---A
+EECS1019---3.0---B+
+EECS2030---3.0---A+
+EECS2011---3.0---B+
+EECS2021---4.0---A+
+EECS2001---3.0---A+
+EECS2031---3.0---B
+EECS3461---3.0---A+
+EECS3101---3.0---A
