@@ -90,6 +90,7 @@ public class TabTitleEditListener extends MouseAdapter implements ChangeListener
             Frame.ExportTab.setVisible(true);
             Frame.ImportTab.setVisible(true);
             Frame.PrintTab.setVisible(true);
+            ((Panel) currentComponent).getCourse().updateTable();
         } else if (currentComponent.getClass().equals(GPA_CALC.class)) {
             Frame.ExportTab.setVisible(true);
             Frame.ImportTab.setVisible(true);

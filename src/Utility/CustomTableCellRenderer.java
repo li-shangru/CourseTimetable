@@ -95,20 +95,20 @@ public class CustomTableCellRenderer extends DefaultTableCellRenderer {
         for (int i = 0; i < Courses.getCourseList().size(); i++) {
             Courses course = Courses.getCourseList().get(i);
             if (course.getName() != null && course.getDuration() != null && course.getDay() != null && course.getStartTime() != null) {
-                int check = Courses.getDurationNum(course.getDuration());
+                int numOfTilesCovered = Courses.getDurationNum(course.getDuration());
                 if (value.equals(course.getIdentifier(course, "name"))) {
                     c.setText(course.getName());
-                    if (check == 0) {
+                    if (numOfTilesCovered == 0) {
                         c.setBackground(Courses.getCourseList().get(i).getColor());
                         c.setForeground(SettingsFrame.getContrastColor(Courses.getCourseList().get(i).getColor()));
                         c.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
                         c.setFont(new Font(Font.SERIF, Font.BOLD, 15));
-                    } else if (check == 1 || check == 2) {
+                    } else if (numOfTilesCovered == 1 || numOfTilesCovered == 2) {
                         c.setBackground(Courses.getCourseList().get(i).getColor());
                         c.setForeground(SettingsFrame.getContrastColor(Courses.getCourseList().get(i).getColor()));
                         c.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, Color.BLACK));
                         c.setFont(new Font(Font.SERIF, Font.BOLD, 15));
-                    } else if (check >= 3) {
+                    } else if (numOfTilesCovered >= 3) {
                         c.setBackground(Courses.getCourseList().get(i).getColor());
                         c.setForeground(SettingsFrame.getContrastColor(Courses.getCourseList().get(i).getColor()));
                         c.setBorder(BorderFactory.createMatteBorder(0, 1, 0, 1, Color.BLACK));
@@ -122,12 +122,12 @@ public class CustomTableCellRenderer extends DefaultTableCellRenderer {
                     } else if (value.equals(course.getIdentifier(course, "type_loc"))) {
                         c.setText(course.getType() + " [" + course.getLocation() + "]");
                     }
-                    if (check == 1) {
+                    if (numOfTilesCovered == 1) {
                         c.setBackground(Courses.getCourseList().get(i).getColor());
                         c.setForeground(SettingsFrame.getContrastColor(Courses.getCourseList().get(i).getColor()));
                         c.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, Color.BLACK));
                         c.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
-                    } else if (check >= 2) {
+                    } else if (numOfTilesCovered >= 2) {
                         c.setBackground(Courses.getCourseList().get(i).getColor());
                         c.setForeground(SettingsFrame.getContrastColor(Courses.getCourseList().get(i).getColor()));
                         c.setBorder(BorderFactory.createMatteBorder(0, 1, 0, 1, Color.BLACK));
@@ -147,12 +147,12 @@ public class CustomTableCellRenderer extends DefaultTableCellRenderer {
                     }
 
 
-                    if (check == 2 || check == 3) {
+                    if (numOfTilesCovered == 2 || numOfTilesCovered == 3) {
                         c.setBackground(Courses.getCourseList().get(i).getColor());
                         c.setForeground(SettingsFrame.getContrastColor(Courses.getCourseList().get(i).getColor()));
                         c.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, Color.BLACK));
                         c.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 11));
-                    } else if (check >= 4) {
+                    } else if (numOfTilesCovered >= 4) {
                         c.setBackground(Courses.getCourseList().get(i).getColor());
                         c.setForeground(SettingsFrame.getContrastColor(Courses.getCourseList().get(i).getColor()));
                         c.setBorder(BorderFactory.createMatteBorder(0, 1, 0, 1, Color.BLACK));
@@ -162,16 +162,19 @@ public class CustomTableCellRenderer extends DefaultTableCellRenderer {
                     c.setBackground(Courses.getCourseList().get(i).getColor());
                     c.setForeground(Courses.getCourseList().get(i).getColor());
                     c.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, Color.BLACK));
+                    c.setText("");
                     c.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 0));
                 } else if (value.equals(course.getIdentifier(course, "bot"))) {
                     c.setBackground(Courses.getCourseList().get(i).getColor());
                     c.setForeground(Courses.getCourseList().get(i).getColor());
                     c.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, Color.BLACK));
+                    c.setText("");
                     c.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 0));
                 } else if (value.equals(course.getIdentifier(course, "mid"))) {
                     c.setBackground(Courses.getCourseList().get(i).getColor());
                     c.setForeground(Courses.getCourseList().get(i).getColor());
                     c.setBorder(BorderFactory.createMatteBorder(0, 1, 0, 1, Color.BLACK));
+                    c.setText("");
                     c.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 0));
                 }
             }
