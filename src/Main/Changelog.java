@@ -113,9 +113,7 @@ public class Changelog extends JPanel {
             } else {
                 return resize_image;
             }
-
         }
-
     }
 
     // ================================================================================
