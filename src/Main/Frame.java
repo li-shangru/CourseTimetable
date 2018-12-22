@@ -16,9 +16,6 @@ import static Main.GPA_CALC.GPA_Scale;
 
 public class Frame extends JFrame {
 
-    // ================================================================================
-
-    // ================================================================================
     public static final int APP_WIDTH = 240;
     public static final int APP_HEIGHT = 350;
     public static final String APP_TITLE = "Course Timetable";
@@ -27,16 +24,30 @@ public class Frame extends JFrame {
     public static final String GPA_CAL = "GPA Calculator";
     public static final String SETTINGS = "Settings";
     public static final String CHANGE = "Change Log";
-    public static final String EXPORT = "Export Tab Data";
-    public static final String IMPORT = "Import Tab Data";
+    public static final String EXPORT = "Save Tab Data";
+    public static final String IMPORT = "Load Tab Data";
     public static final String EXIT = "Exit";
+    public static final String PRINT = "Print";
     public static final String FILE_PATH = System.getProperty("user.dir") + "\\";
     public static JMenuItem ExportTab = new JMenuItem(EXPORT);
     public static JMenuItem ImportTab = new JMenuItem(IMPORT);
+    public static JMenuItem PrintTab = new JMenuItem(PRINT);
     public static JTabbedPane tabbedPane = new JTabbedPane();
     public static List<JComponent> tabbedPaneList = new ArrayList<>();
     public static boolean importing = false;
     private final int SHORTCUT_MASK = Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();
+
+    // ================================================================================
+    // ================================================================================
+    // ================================================================================
+
+    public static void main(String[] args) {
+        new Frame();
+    }
+
+    // ================================================================================
+    // ================================================================================
+    // ================================================================================
 
     public Frame() {
         super(APP_TITLE);
@@ -88,13 +99,9 @@ public class Frame extends JFrame {
         setVisible(true);
     }
 
-    public static void main(String[] args) {
-        new Frame();
-    }
-
     // ================================================================================
 
-    public static void add_tab(JComponent component, String title) {
+    public void add_tab(JComponent component, String title) {
         if (component.getClass().equals(Panel.class)) {
             Panel pane = (Panel) component;
             Courses courses = new Courses(pane);
@@ -174,6 +181,13 @@ public class Frame extends JFrame {
         ImportTab.setForeground(SettingsFrame.getContrastColor(SettingsFrame.themeColor));
         ImportTab.setBackground(SettingsFrame.themeColor.brighter());
 
+        JMenuItem Settings = new JMenuItem(SETTINGS);
+        Settings.setActionCommand(SETTINGS);
+        Settings.addActionListener(listener);
+        Settings.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, SHORTCUT_MASK));
+        Settings.setForeground(SettingsFrame.getContrastColor(SettingsFrame.themeColor));
+        Settings.setBackground(SettingsFrame.themeColor.brighter());
+
         JMenuItem Exit = new JMenuItem(EXIT);
         Exit.setActionCommand(EXIT);
         Exit.addActionListener(listener);
@@ -185,6 +199,9 @@ public class Frame extends JFrame {
         Option.add(CloseTab);
         Option.add(ExportTab);
         Option.add(ImportTab);
+        Option.addSeparator();
+        Option.add(Settings);
+        Option.addSeparator();
         Option.add(Exit);
 
         menuBar.add(Option);
@@ -202,15 +219,14 @@ public class Frame extends JFrame {
         GPA.setForeground(SettingsFrame.getContrastColor(SettingsFrame.themeColor));
         GPA.setBackground(SettingsFrame.themeColor.brighter());
 
-        JMenuItem Settings = new JMenuItem(SETTINGS);
-        Settings.setActionCommand(SETTINGS);
-        Settings.addActionListener(listener);
-        Settings.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, SHORTCUT_MASK));
-        Settings.setForeground(SettingsFrame.getContrastColor(SettingsFrame.themeColor));
-        Settings.setBackground(SettingsFrame.themeColor.brighter());
+        PrintTab.setActionCommand(PRINT);
+        PrintTab.addActionListener(listener);
+        PrintTab.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, SHORTCUT_MASK));
+        PrintTab.setForeground(SettingsFrame.getContrastColor(SettingsFrame.themeColor));
+        PrintTab.setBackground(SettingsFrame.themeColor.brighter());
 
         Tools.add(GPA);
-        Tools.add(Settings);
+        Tools.add(PrintTab);
 
         menuBar.add(Tools);
 
@@ -235,6 +251,9 @@ public class Frame extends JFrame {
 
         setJMenuBar(menuBar);
     }
+
+    // ================================================================================
+    // ================================================================================
 
     public void exportData(String FILE_PATH) {
         // For windowns only

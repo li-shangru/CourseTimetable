@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.print.PrinterException;
 
 import static Main.Frame.FILE_PATH;
 
@@ -23,7 +24,7 @@ public class Listener implements KeyListener, ActionListener {
         String command = event.getActionCommand();
 
         if (command.equals(Frame.NEW_TAB)) {
-            Frame.add_tab(new Panel(), ("Term " + (Frame.tabbedPaneList.size() + 1)));
+            frame.add_tab(new Panel(), ("Term " + (Frame.tabbedPaneList.size() + 1)));
         } else if (command.equals(Frame.CLOSE_TAB)) {
             if (Frame.tabbedPaneList.size() == 1) {
                 Toolkit.getDefaultToolkit().beep();
@@ -46,14 +47,28 @@ public class Listener implements KeyListener, ActionListener {
             }
         } else if (command.equals(Frame.GPA_CAL)) {
             GPA_CALC gpa_CALC = new GPA_CALC();
-            Frame.add_tab(gpa_CALC, Frame.GPA_CAL);
+            frame.add_tab(gpa_CALC, Frame.GPA_CAL);
         } else if (command.equals(Frame.CHANGE)) {
             Changelog changelog = new Changelog();
-            Frame.add_tab(changelog, Frame.CHANGE);
+            frame.add_tab(changelog, Frame.CHANGE);
         } else if (command.equals(Frame.EXIT)) {
             System.exit(0);
         } else if (command.equals(Frame.SETTINGS)) {
             new SettingsFrame();
+        } else if (command.equals(Frame.PRINT)) {
+            try {
+                boolean complete = ((Panel) Frame.tabbedPane.getSelectedComponent()).getTimetable().print();
+                if (complete) {
+                    Toolkit.getDefaultToolkit().beep();
+                    JOptionPane.showMessageDialog(frame, "Printing Complete", "Printing Result", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    Toolkit.getDefaultToolkit().beep();
+                    JOptionPane.showMessageDialog(frame, "Printing Cancelled", "Printing Result", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (PrinterException pe) {
+                Toolkit.getDefaultToolkit().beep();
+                JOptionPane.showMessageDialog(frame, "Printing Failed: " + pe.getMessage(), "Printing Result", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 

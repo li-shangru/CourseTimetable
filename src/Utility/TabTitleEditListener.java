@@ -85,30 +85,27 @@ public class TabTitleEditListener extends MouseAdapter implements ChangeListener
         renameTabTitle.actionPerformed(null);
         JTabbedPane tabbedPane = (JTabbedPane) e.getSource();
         int tab = tabbedPane.getSelectedIndex();
-        for (int i = 0; i < Main.Frame.tabbedPaneList.size(); i++) {
-            JComponent component = Main.Frame.tabbedPaneList.get(i);
-            if (component.getClass().equals(Panel.class)) {
-                Panel panel = (Panel) component;
-                Frame.ExportTab.setVisible(true);
-                Frame.ImportTab.setVisible(true);
-                if (i == tab) {
-                    panel.setEnabled(true);
-                    panel.getCourse().updateTable();
-                } else {
-                    panel.setEnabled(false);
-                }
-            } else {
-                Frame.ExportTab.setVisible(false);
-                Frame.ImportTab.setVisible(false);
-            }
-        }
-        JComponent component = Main.Frame.tabbedPaneList.get(tab);
-        if (component.getClass().equals(Panel.class) || component.getClass().equals(GPA_CALC.class)) {
+        JComponent currentComponent = Main.Frame.tabbedPaneList.get(tab);
+        if (currentComponent.getClass().equals(Panel.class)) {
             Frame.ExportTab.setVisible(true);
             Frame.ImportTab.setVisible(true);
+            Frame.PrintTab.setVisible(true);
+        } else if (currentComponent.getClass().equals(GPA_CALC.class)) {
+            Frame.ExportTab.setVisible(true);
+            Frame.ImportTab.setVisible(true);
+            Frame.PrintTab.setVisible(false);
         } else {
             Frame.ExportTab.setVisible(false);
             Frame.ImportTab.setVisible(false);
+            Frame.PrintTab.setVisible(false);
+        }
+        for (int i = 0; i < Main.Frame.tabbedPaneList.size(); i++) {
+            currentComponent = Main.Frame.tabbedPaneList.get(i);
+            if (i == tab) {
+                currentComponent.setEnabled(true);
+            } else {
+                currentComponent.setEnabled(false);
+            }
         }
     }
 

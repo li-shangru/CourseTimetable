@@ -11,13 +11,21 @@ import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.print.Printable;
+import java.text.MessageFormat;
 import java.util.Vector;
 
 
 public class Panel extends JPanel implements ActionListener {
 
     private Coursetable courseTable = new Coursetable();
-    private JTable timetable = new JTable(new Timetable());
+    private JTable timetable = new JTable(new Timetable()) {
+        @Override
+        public Printable getPrintable(PrintMode printMode, MessageFormat headerFormat, MessageFormat footerFormat) {
+
+            return super.getPrintable(printMode, headerFormat, footerFormat);
+        }
+    };
     private JTable coursetable = new JTable(courseTable);
     private JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
     private Controller controller;
@@ -35,6 +43,7 @@ public class Panel extends JPanel implements ActionListener {
 
         TableSetUp(timetable, "Timetable");
         TableSetUp(coursetable, "Coursetable");
+
     }
 
 

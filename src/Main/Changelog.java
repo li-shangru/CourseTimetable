@@ -10,11 +10,11 @@ import java.io.IOException;
 
 public class Changelog extends JPanel {
 
-    public final String change_log =
-            "Version: 1.0   (2018-06-18)\nInitial release version\n\nVersion: " +
-                    "1.1   (2018-09-03)\nNew GPA scale for TUST\nNew Conformation Boxes\nExport&Import for GPA Calculator\nVarious bug fixes\n\n" +
+    private final String change_log =
+            "Version: 1.0   (2018-06-18)\nInitial release version\n\n" +
+                    "Version: 1.1   (2018-09-03)\nNew GPA scale\nNew Conformation Boxes\nExport&Import for GPA Calculator\nVarious bug fixes\n\n" +
                     "Version: 1.2   (2018-11-09)\nMinor improvements\n\n" +
-                    "Version: 1.3   (2018-12-19)\nNew settings panel\nNew theme option\nNew start-up option\nUI improvements";
+                    "Version: 1.3   (2018-12-22)\nNew settings panel\nNew theme option\nNew start-up option\nUI improvements\nNew Print function";
 
     // ================================================================================
 
@@ -27,16 +27,24 @@ public class Changelog extends JPanel {
                         "Suggestions & Problems please contact: li.shangru@me.com.          " +
                         "Special thanks to Tianlun, D., Leo, G., Leo, R., Mach, Q. and Zoe, Z. for all the help and support.";
 
-        JTextPane changelogPane = new JTextPane();
-        changelogPane.setText(change_log);
-        changelogPane.setEditable(false);
-        changelogPane.setFont(new Font(Font.DIALOG_INPUT, Font.BOLD, 13));
-        changelogPane.setOpaque(false);
-        changelogPane.setHighlighter(null);
+        JTextArea changelogText = new JTextArea(change_log);
+        changelogText.setFont(new Font(Font.DIALOG_INPUT, Font.BOLD, 13));
+        changelogText.setEditable(false);
+        changelogText.setOpaque(false);
+        changelogText.setHighlighter(null);
+        changelogText.setCaretPosition(changelogText.getDocument().getLength());
 
-        JPanel top = new MyPanel();
-        top.add(changelogPane, BorderLayout.SOUTH);
-        add(top, BorderLayout.CENTER);
+        JScrollPane changelogScroll = new JScrollPane(changelogText);
+        changelogScroll.setOpaque(false);
+        changelogScroll.getViewport().setOpaque(false);
+        changelogScroll.setBorder(null);
+        changelogScroll.setPreferredSize(new Dimension(50, 180));
+        changelogScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
+        changelogScroll.getHorizontalScrollBar().setOpaque(false);
+
+        JPanel changelogPanel = new MyPanel();
+        changelogPanel.add(changelogScroll, BorderLayout.SOUTH);
+        add(changelogPanel, BorderLayout.CENTER);
 
         MarqueePanel mp = new MarqueePanel(acknowledgments, Frame.APP_WIDTH);
         add(mp, BorderLayout.PAGE_END);
