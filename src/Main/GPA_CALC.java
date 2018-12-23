@@ -42,7 +42,7 @@ public class GPA_CALC extends JPanel implements ActionListener {
         TableSetUp(scaletable, "Scaletable");
         TableSetUp(coursetable, "Coursetable");
 
-        splitPane.setDividerLocation(425);
+        splitPane.setDividerLocation(Frame.APP_WIDTH / 2);
     }
 
     // ================================================================================
@@ -100,7 +100,7 @@ public class GPA_CALC extends JPanel implements ActionListener {
                 User_GPA = -1;
                 TableSetUp(coursetable, "Coursetable_update");
 
-                splitPane.setDividerLocation(425);
+                splitPane.setDividerLocation(Frame.APP_WIDTH / 2);
             }
         }
 
@@ -224,17 +224,17 @@ public class GPA_CALC extends JPanel implements ActionListener {
 
             leftHalf.add(scaletable_scrollPane, BorderLayout.CENTER);
 
-            leftHalf.setMinimumSize(new Dimension(213, 445));
-            leftHalf.setPreferredSize(new Dimension(425, 890));
+            leftHalf.setMinimumSize(new Dimension(Frame.APP_WIDTH / 10, Frame.APP_HEIGHT / 10));
+            leftHalf.setPreferredSize(new Dimension(Frame.APP_WIDTH / 2, (int) (scaletable_scrollPane.getViewport().getViewSize().height + tableHeader.getPreferredSize().getHeight())));
 
             splitPane.add(leftHalf);
 
             centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 
-            table.setRowHeight(50);
+            table.setRowHeight(Frame.APP_HEIGHT / 20);
             table.setDefaultRenderer(Object.class, centerRenderer);
 
-            tableHeader.setPreferredSize(new Dimension(100, 32));
+            tableHeader.setPreferredSize(new Dimension(Frame.APP_WIDTH / 5, Frame.APP_HEIGHT / 30));
             tableHeader.setFont(new Font("Header", Font.BOLD, 15));
             tableHeader.setResizingAllowed(false);
             tableHeader.setReorderingAllowed(false);
@@ -242,9 +242,9 @@ public class GPA_CALC extends JPanel implements ActionListener {
             for (int i = 0; i < Scaletable.columnNames.length; i++) {
                 column = table.getColumnModel().getColumn(i);
                 if (i == 1) {
-                    column.setPreferredWidth(165);
+                    column.setPreferredWidth(Frame.APP_WIDTH / 5);
                 } else {
-                    column.setPreferredWidth(130);
+                    column.setPreferredWidth(Frame.APP_WIDTH / 6);
                 }
             }
 
@@ -284,13 +284,6 @@ public class GPA_CALC extends JPanel implements ActionListener {
             GPAPanel.add(userGPA, BorderLayout.NORTH);
             GPAPanel.add(buttonPanel, BorderLayout.SOUTH);
 
-            rightHalf.add(coursetable_scrollPane, BorderLayout.CENTER);
-            rightHalf.add(GPAPanel, BorderLayout.SOUTH);
-            rightHalf.setMinimumSize(new Dimension(213, 445));
-            rightHalf.setPreferredSize(new Dimension(425, 890));
-
-            splitPane.add(rightHalf);
-
             // ================================================================================
 
             TableColumn column = null;
@@ -301,10 +294,10 @@ public class GPA_CALC extends JPanel implements ActionListener {
             tableHeader.setBackground(SettingsFrame.themeColor);
             centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 
-            table.setRowHeight(50);
+            table.setRowHeight(Frame.APP_HEIGHT / 20);
             table.setDefaultRenderer(Object.class, centerRenderer);
 
-            tableHeader.setPreferredSize(new Dimension(100, 32));
+            tableHeader.setPreferredSize(new Dimension(Frame.APP_WIDTH / 5, Frame.APP_HEIGHT / 30));
             tableHeader.setFont(new Font("Header", Font.BOLD, 15));
             tableHeader.setResizingAllowed(false);
             tableHeader.setReorderingAllowed(false);
@@ -313,15 +306,22 @@ public class GPA_CALC extends JPanel implements ActionListener {
                 column = table.getColumnModel().getColumn(i);
 
                 if (i == 0) {
-                    column.setPreferredWidth(165);
+                    column.setPreferredWidth(Frame.APP_HEIGHT / 4);
                 } else if (i == 1) {
                     column.setCellEditor(new NumEditor(0, 100));
                     column.setCellRenderer(centerRenderer);
-                    column.setPreferredWidth(130);
+                    column.setPreferredWidth(Frame.APP_HEIGHT / 5);
                 } else if (i == 2) {
-                    column.setPreferredWidth(130);
+                    column.setPreferredWidth(Frame.APP_HEIGHT / 5);
                 }
             }
+
+            rightHalf.add(coursetable_scrollPane, BorderLayout.CENTER);
+            rightHalf.add(GPAPanel, BorderLayout.SOUTH);
+            rightHalf.setMinimumSize(new Dimension(Frame.APP_WIDTH / 10, Frame.APP_HEIGHT / 10));
+            rightHalf.setPreferredSize(new Dimension(Frame.APP_WIDTH / 2, (int) (coursetable_scrollPane.getViewport().getViewSize().height + tableHeader.getPreferredSize().getHeight())));
+
+            splitPane.add(rightHalf);
         }
 
         // ================================================================================

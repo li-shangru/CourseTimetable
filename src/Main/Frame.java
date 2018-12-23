@@ -16,8 +16,8 @@ import static Main.GPA_CALC.GPA_Scale;
 
 public class Frame extends JFrame {
 
-    public static final int APP_WIDTH = 240;
-    public static final int APP_HEIGHT = 350;
+    public static final int APP_WIDTH = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2.1);
+    public static final int APP_HEIGHT = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 1.1);
     public static final String APP_TITLE = "Course Timetable";
     public static final String NEW_TAB = "New Tab";
     public static final String CLOSE_TAB = "Close Tab";
@@ -51,9 +51,10 @@ public class Frame extends JFrame {
 
     public Frame() {
         super(APP_TITLE);
-        setMinimumSize(new Dimension(APP_WIDTH, APP_HEIGHT));
-        setResizable(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setPreferredSize(new Dimension(APP_WIDTH, APP_HEIGHT));
+        this.setMinimumSize(new Dimension(APP_WIDTH / 3, APP_HEIGHT / 3));
+        this.setResizable(true);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         try {
             SettingsFrame.startUpCheck();

@@ -46,7 +46,8 @@ public class Changelog extends JPanel {
         changelogPanel.add(changelogScroll, BorderLayout.SOUTH);
         add(changelogPanel, BorderLayout.CENTER);
 
-        MarqueePanel mp = new MarqueePanel(acknowledgments, Frame.APP_WIDTH);
+        MarqueePanel mp = new MarqueePanel(acknowledgments, Frame.APP_WIDTH / 4);
+        mp.setPreferredSize(new Dimension(Frame.APP_WIDTH, Frame.APP_HEIGHT / 35));
         add(mp, BorderLayout.PAGE_END);
         mp.start();
     }

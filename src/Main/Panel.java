@@ -11,21 +11,13 @@ import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.print.Printable;
-import java.text.MessageFormat;
 import java.util.Vector;
 
 
 public class Panel extends JPanel implements ActionListener {
 
     private Coursetable courseTable = new Coursetable();
-    private JTable timetable = new JTable(new Timetable()) {
-        @Override
-        public Printable getPrintable(PrintMode printMode, MessageFormat headerFormat, MessageFormat footerFormat) {
-
-            return super.getPrintable(printMode, headerFormat, footerFormat);
-        }
-    };
+    private JTable timetable = new JTable(new Timetable());
     private JTable coursetable = new JTable(courseTable);
     private JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
     private Controller controller;
@@ -43,7 +35,6 @@ public class Panel extends JPanel implements ActionListener {
 
         TableSetUp(timetable, "Timetable");
         TableSetUp(coursetable, "Coursetable");
-
     }
 
 
@@ -54,18 +45,10 @@ public class Panel extends JPanel implements ActionListener {
         table.setForeground(SettingsFrame.getContrastColor(SettingsFrame.themeColor));
         table.setBackground(SettingsFrame.themeColor.brighter());
 
-        if (name == "Timetable") {
+        if (name.equals("Timetable")) {
             JScrollPane timetable_scrollPane = new JScrollPane(timetable);
             JPanel topHalf = new JPanel(new BorderLayout());
-            topHalf.add(timetable_scrollPane);
-            topHalf.setMinimumSize(new Dimension(425, 355));
-            topHalf.setPreferredSize(new Dimension(850, 710));
 
-            splitPane.add(topHalf);
-
-            // ================================================================================
-
-            TableColumn column = null;
             JTableHeader tableHeader = table.getTableHeader();
             DefaultTableCellRenderer centerRenderer = new CustomTableCellRenderer();
 
@@ -74,24 +57,34 @@ public class Panel extends JPanel implements ActionListener {
 
             centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 
-            table.setRowHeight(23);
+            table.setRowHeight(Frame.APP_HEIGHT / 40);
             table.setDefaultRenderer(Object.class, centerRenderer);
 
-            tableHeader.setPreferredSize(new Dimension(100, 32));
+            tableHeader.setPreferredSize(new Dimension(Frame.APP_WIDTH / 5, Frame.APP_HEIGHT / 30));
             tableHeader.setFont(new Font("Header", Font.BOLD, 14));
             tableHeader.setResizingAllowed(false);
             tableHeader.setReorderingAllowed(false);
 
             for (int i = 0; i < Timetable.columnNames.length; i++) {
-                column = table.getColumnModel().getColumn(i);
-
+                TableColumn column = table.getColumnModel().getColumn(i);
                 if (i == 0) {
-                    column.setPreferredWidth(118);
+                    column.setPreferredWidth(Frame.APP_WIDTH / 6);
                 } else {
-                    column.setPreferredWidth(147);
+                    column.setPreferredWidth(Frame.APP_WIDTH / 5);
                 }
             }
-        } else if (name == "Coursetable") {
+
+            topHalf.add(timetable_scrollPane);
+            topHalf.setMinimumSize(new Dimension(Frame.APP_WIDTH / 10, Frame.APP_HEIGHT / 10));
+            topHalf.setPreferredSize(new Dimension(Frame.APP_WIDTH, (int) (timetable_scrollPane.getViewport().getViewSize().height + tableHeader.getPreferredSize().getHeight())));
+
+            splitPane.add(topHalf, JSplitPane.TOP);
+            splitPane.setDividerSize(5);
+            splitPane.setDividerLocation((int) (timetable_scrollPane.getViewport().getViewSize().height + tableHeader.getPreferredSize().getHeight() + splitPane.getDividerSize() - 1));
+
+            // ================================================================================
+
+        } else if (name.equals("Coursetable")) {
             JScrollPane coursetable_scrollPane = new JScrollPane(coursetable);
             JPanel bottomHalf = new JPanel(new BorderLayout());
 
@@ -139,12 +132,6 @@ public class Panel extends JPanel implements ActionListener {
             buttonPanel.add(downButton);
             buttonPanel.add(updateButton);
 
-            bottomHalf.add(coursetable_scrollPane, BorderLayout.CENTER);
-            bottomHalf.add(buttonPanel, BorderLayout.SOUTH);
-            bottomHalf.setMinimumSize(new Dimension(425, 90));
-            bottomHalf.setPreferredSize(new Dimension(850, 180));
-
-            splitPane.add(bottomHalf);
             // ================================================================================
 
             TableColumn column = null;
@@ -154,12 +141,12 @@ public class Panel extends JPanel implements ActionListener {
             tableHeader.setForeground(SettingsFrame.getContrastColor(SettingsFrame.themeColor));
             tableHeader.setBackground(SettingsFrame.themeColor);
 
-            table.setRowHeight(18);
+            table.setRowHeight(Frame.APP_HEIGHT / 40);
             table.setDefaultRenderer(Color.class, new ColorRenderer(true));
             table.setDefaultEditor(Color.class, new ColorEditor());
             centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 
-            tableHeader.setPreferredSize(new Dimension(100, 32));
+            tableHeader.setPreferredSize(new Dimension(Frame.APP_WIDTH / 5, Frame.APP_HEIGHT / 30));
             tableHeader.setFont(new Font("Header", Font.BOLD, 13));
             tableHeader.setResizingAllowed(false);
             tableHeader.setReorderingAllowed(false);
@@ -211,6 +198,13 @@ public class Panel extends JPanel implements ActionListener {
                 } else if (i == 10) {
                     column.setPreferredWidth(10);
                 }
+
+                bottomHalf.add(coursetable_scrollPane, BorderLayout.CENTER);
+                bottomHalf.add(buttonPanel, BorderLayout.SOUTH);
+                bottomHalf.setMinimumSize(new Dimension(Frame.APP_WIDTH / 10, Frame.APP_HEIGHT / 10));
+                bottomHalf.setPreferredSize(new Dimension(Frame.APP_WIDTH, (int) (coursetable_scrollPane.getViewport().getViewSize().height + tableHeader.getPreferredSize().getHeight())));
+
+                splitPane.add(bottomHalf, JSplitPane.BOTTOM);
             }
         } else {
             throw new Error("Table Error");
