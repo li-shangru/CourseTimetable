@@ -389,7 +389,7 @@ public class Frame extends JFrame {
             }
         }
         if (check == 0 && mode.equals("normal")) {
-            Object message = "No data file found, please place exported data files at the same directory with this program";
+            Object message = "No data file found, please place saved data files and this program in the same directory";
             Toolkit.getDefaultToolkit().beep();
             JOptionPane.showMessageDialog(this, message, "Import Data", JOptionPane.ERROR_MESSAGE);
         } else if (check == 0 && mode.equals("startup")) {
