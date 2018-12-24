@@ -333,9 +333,6 @@ public class GPA_CALC extends JPanel implements ActionListener {
             } else if (User_GPA == -2) {
                 userGPA.setText("Data Error");
             } else {
-                for (int i = 0; i < table.getRowCount(); i++) {
-                    table.setValueAt(null, i, 2);
-                }
                 TableColumn column = table.getColumnModel().getColumn(2);
                 JComboBox<String> comboBox = new JComboBox<String>();
                 for (int j = 0; j < Grades_Scale.size(); j++) {
@@ -364,7 +361,13 @@ public class GPA_CALC extends JPanel implements ActionListener {
         for (int i = 0; i < courseTable.getRowCount(); i++) {
             double User_Credits = (Double) courseTable.getValueAt(i, 1);
             if (User_Credits != 0 && courseTable.getValueAt(i, 2) != null && !courseTable.getValueAt(i, 2).toString().isEmpty()) {
-                double User_Grade = courseTable.getUserGrade((String) courseTable.getValueAt(i, 2));
+                double User_Grade;
+                try {
+                    User_Grade = courseTable.getUserGrade((String) courseTable.getValueAt(i, 2));
+                } catch (Exception e) {
+                    userGPA.setText("Data Error");
+                    return;
+                }
                 Total_Credits = Total_Credits + User_Credits;
                 Total_Grade = Total_Grade + User_Grade * User_Credits;
                 User_GPA = -1;
