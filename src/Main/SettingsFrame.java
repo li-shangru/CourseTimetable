@@ -25,7 +25,7 @@ public class SettingsFrame extends JDialog implements ActionListener {
     private static JRadioButton darkButton = new JRadioButton(DARK);
     private static JRadioButton customButton = new JRadioButton(CUSTOM);
     private static JTable customColorTable;
-    private static JTextField noticeText = new JTextField("Please restart application to take effect.");
+    private static JTextField noticeText = new JTextField("Please restart application to take effect");
 
     public SettingsFrame() {
         super.setTitle("Settings");
