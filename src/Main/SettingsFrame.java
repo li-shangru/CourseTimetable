@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 
-import static Main.Frame.*;
+import static Main.Frame.FILE_PATH;
 
 public class SettingsFrame extends JDialog implements ActionListener {
     public static final Color PURE_BLACK = new Color(30, 30, 30);
@@ -18,7 +18,7 @@ public class SettingsFrame extends JDialog implements ActionListener {
     private static final String SAVED_TAB_LOAD = "Load saved tabs on start up";
     private static final String LIGHT = "Clear White";
     private static final String DARK = "Pure Black";
-    private static final String CUSTOM = "Pick-it-yourself";
+    private static final String CUSTOM = "Custom Color";
     public static Color themeColor = Color.WHITE;
     public static JCheckBox saved_tab_load = new JCheckBox(SAVED_TAB_LOAD);
     private static JRadioButton lightButton = new JRadioButton(LIGHT);
@@ -31,7 +31,7 @@ public class SettingsFrame extends JDialog implements ActionListener {
         super.setTitle("Settings");
         super.setModal(true);
 
-        setMinimumSize(new Dimension(APP_WIDTH, APP_HEIGHT / 2));
+        setMinimumSize(new Dimension(200, 150));
         setResizable(false);
 
         SetPanel();
@@ -109,7 +109,7 @@ public class SettingsFrame extends JDialog implements ActionListener {
         darkButton.addActionListener(this);
         darkButton.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
 
-        Object[][] row = new Object[][]{{"        Custom Color", Color.WHITE}};
+        Object[][] row = new Object[][]{{"        Pick a color :", Color.WHITE}};
         Object[] col = new Object[]{"", ""};
         customColorTable = new JTable(row, col) {
             @Override
@@ -230,21 +230,21 @@ public class SettingsFrame extends JDialog implements ActionListener {
             darkButton.setSelected(false);
             customButton.setSelected(false);
             if (noticeText.getForeground().equals(this.getBackground())) {
-                noticeText.setForeground(Color.BLACK);
+                noticeText.setForeground(Color.RED);
             }
         } else if (command.equals(DARK)) {
             lightButton.setSelected(false);
             darkButton.setSelected(true);
             customButton.setSelected(false);
             if (noticeText.getForeground().equals(this.getBackground())) {
-                noticeText.setForeground(Color.BLACK);
+                noticeText.setForeground(Color.RED);
             }
         } else if (command.equals(CUSTOM)) {
             lightButton.setSelected(false);
             darkButton.setSelected(false);
             customButton.setSelected(true);
             if (noticeText.getForeground().equals(this.getBackground())) {
-                noticeText.setForeground(Color.BLACK);
+                noticeText.setForeground(Color.RED);
             }
         }
 
