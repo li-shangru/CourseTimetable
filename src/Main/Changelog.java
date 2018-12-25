@@ -16,17 +16,26 @@ public class Changelog extends JPanel {
                     "Version: 1.2   (2018-11-09)\nMinor improvements\n\n" +
                     "Version: 1.3   (2018-12-22)\nNew settings panel\nNew theme option\nNew start-up option\nUI improvements\nNew Print function";
 
+    private final String acknowledgments =
+            "Thank you for using CourseTimetable.          " +
+                    "CourseTimetable is an application by Shangru Li          " +
+                    "Suggestions & Problems please contact: li.shangru@me.com.          " +
+                    "Special thanks to Tianlun, D., Leo, G., Leo, R., Mach, Q. and Zoe, Z. for all the help and support.";
+
     // ================================================================================
 
+    /*
+    Setup the changelog panel to display.
+     */
     public Changelog() {
         super(new BorderLayout());
-
-        String acknowledgments =
-                "Thank you for using CourseTimetable.          " +
-                        "CourseTimetable is an application by Shangru Li          " +
-                        "Suggestions & Problems please contact: li.shangru@me.com.          " +
-                        "Special thanks to Tianlun, D., Leo, G., Leo, R., Mach, Q. and Zoe, Z. for all the help and support.";
-
+        /*
+        Create a new JTextArea for changelog, with features:
+            user cannot edit,
+            transparent background,
+            user cannot select its text,
+            auto scroll to the bottom of its content.
+         */
         JTextArea changelogText = new JTextArea(change_log);
         changelogText.setFont(new Font(Font.DIALOG_INPUT, Font.BOLD, 13));
         changelogText.setEditable(false);
@@ -34,6 +43,14 @@ public class Changelog extends JPanel {
         changelogText.setHighlighter(null);
         changelogText.setCaretPosition(changelogText.getDocument().getLength());
 
+        /*
+        Create a new JScrollPane to place changelogText, with features:
+            transparent background,
+            no border,
+            size specified,
+            no vertical scroll bar,
+            no horizontal scroll bar background.
+         */
         JScrollPane changelogScroll = new JScrollPane(changelogText);
         changelogScroll.setOpaque(false);
         changelogScroll.getViewport().setOpaque(false);
@@ -42,35 +59,60 @@ public class Changelog extends JPanel {
         changelogScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
         changelogScroll.getHorizontalScrollBar().setOpaque(false);
 
-        JPanel changelogPanel = new MyPanel();
+        /*
+        Create a new JPanel to display the background picture and place the changelogScroll.
+        then add the JPanel to the current panel
+         */
+        JPanel changelogPanel = new ImageDisplayPanel();
         changelogPanel.add(changelogScroll, BorderLayout.SOUTH);
-        add(changelogPanel, BorderLayout.CENTER);
+        this.add(changelogPanel, BorderLayout.CENTER);
 
-        MarqueePanel mp = new MarqueePanel(acknowledgments, Frame.APP_WIDTH / 4);
-        add(mp, BorderLayout.PAGE_END);
+        /*
+        Create a new Marquee to display acknowledgments, with scrolling speed set to Frame.APP_WIDTH/4.
+        add the Marquee to the current panel, then start scrolling.
+         */
+        MarqueePanel mp = new MarqueePanel(acknowledgments, acknowledgments.length());
+        this.add(mp, BorderLayout.PAGE_END);
         mp.start();
     }
 
     // ================================================================================
+    // ================================================================================
+    // ================================================================================
 
-    public class MyPanel extends JPanel {
+    public class ImageDisplayPanel extends JPanel {
 
         private BufferedImage image;
 
-        public MyPanel() {
+        /*
+        Instantiate this panel.
+         */
+        private ImageDisplayPanel() {
             super(new BorderLayout());
-            setOpaque(false);
+            this.setOpaque(false);
+            image = getImageByTheme();
+        }
+
+        /*
+        Return either the dark-text or the light-text version of the background image,
+        determined by the current theme color.
+         */
+        private BufferedImage getImageByTheme() {
             try {
                 if (((299 * SettingsFrame.themeColor.getRed() + 587 * SettingsFrame.themeColor.getGreen() + 114 * SettingsFrame.themeColor.getBlue()) / 1000) < 128) {
-                    image = ImageIO.read(getClass().getResource("/Resources/Timetable_DARK.png"));
+                    return ImageIO.read(getClass().getResource("/Resources/Timetable_DARK.png"));
                 } else {
-                    image = ImageIO.read(getClass().getResource("/Resources/Timetable.png"));
+                    return ImageIO.read(getClass().getResource("/Resources/Timetable.png"));
                 }
             } catch (IOException ex) {
                 ex.printStackTrace();
+                return null;
             }
         }
 
+        /*
+        Paint the image, if the size of the Panel change, will try to resize the image.
+         */
         @Override
         protected void paintComponent(Graphics g) {
             Graphics2D g2d = (Graphics2D) g.create();
@@ -84,21 +126,16 @@ public class Changelog extends JPanel {
             g2d.dispose();
         }
 
-        private Image resizeToBig(Image resize_image, int biggerWidth, int biggerHeight) {
-            if (image.getHeight() != biggerHeight || image.getWidth() != biggerWidth) {
+        /*
+        Resize the image if the size the container changed.
+        Resize the input image: resize_image to to desired dimension: resizeWidth and resizeHeight.
+         */
+        private Image resizeToBig(Image resize_image, int resizeWidth, int resizeHeight) {
+            if (image.getHeight() != resizeHeight || image.getWidth() != resizeWidth) {
                 int type = BufferedImage.TYPE_INT_ARGB;
-                Image originalImage = null;
-                try {
-                    if (((299 * SettingsFrame.themeColor.getRed() + 587 * SettingsFrame.themeColor.getGreen() + 114 * SettingsFrame.themeColor.getBlue()) / 1000) < 128) {
-                        originalImage = ImageIO.read(getClass().getResource("/Resources/Timetable_DARK.png"));
-                    } else {
-                        originalImage = ImageIO.read(getClass().getResource("/Resources/Timetable.png"));
-                    }
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
+                Image originalImage = getImageByTheme();
 
-                BufferedImage resizedImage = new BufferedImage(biggerWidth, biggerHeight, type);
+                BufferedImage resizedImage = new BufferedImage(resizeWidth, resizeHeight, type);
                 Graphics2D g = resizedImage.createGraphics();
 
                 g.setComposite(AlphaComposite.Src);
@@ -106,7 +143,7 @@ public class Changelog extends JPanel {
                 g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
                 g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-                g.drawImage(originalImage, 0, 0, biggerWidth, biggerHeight, this);
+                g.drawImage(originalImage, 0, 0, resizeWidth, resizeHeight, this);
                 g.dispose();
 
                 return resizedImage;
@@ -119,14 +156,19 @@ public class Changelog extends JPanel {
     // ================================================================================
     public class MarqueePanel extends JPanel implements ActionListener {
 
-        private static final int RATE = 10;
-        private final Timer timer = new Timer(600 / RATE, this);
+        private static final int RATE = 25;
+        private final Timer timer = new Timer(1000 / RATE, this);
         private final JLabel label = new JLabel();
         private final String s;
         private final int n;
         private int index;
 
-        public MarqueePanel(String s, int n) {
+        /*
+        Construct the MarqueePanel with given text s and length n.
+        By appending char ' ' to the end to the given string,
+        we can achieve the marquee effect.
+         */
+        private MarqueePanel(String s, int n) {
             if (s == null || n < 1) {
                 throw new IllegalArgumentException("Null string or n < 1");
             }
