@@ -262,7 +262,9 @@ public class Frame extends JFrame {
         BufferedWriter writer = null;
         File file = new File(FILE_PATH);
         if (file.exists()) {
-            Toolkit.getDefaultToolkit().beep();
+            if (SettingsFrame.sound_effect_check.isSelected()) {
+                Toolkit.getDefaultToolkit().beep();
+            }
             if (JOptionPane.showConfirmDialog(this, "File exists, Override?", "Please Confirm", JOptionPane.YES_NO_OPTION) == 1) {
                 return;
             }
@@ -270,13 +272,19 @@ public class Frame extends JFrame {
         if (tabbedPaneList.get(tabbedPane.getSelectedIndex()).getClass().equals(GPA_CALC.class)) {
             try {
                 if (GPA_CALC.selected_index.equals("Select Scale")) {
-                    Toolkit.getDefaultToolkit().beep();
+                    if (SettingsFrame.sound_effect_check.isSelected()) {
+                        Toolkit.getDefaultToolkit().beep();
+                    }
                     JOptionPane.showMessageDialog(this, "Please select a scale", "Error", JOptionPane.ERROR_MESSAGE);
                 } else if (GPA_CALC.selected_index.equals("Custom Scale")) {
-                    Toolkit.getDefaultToolkit().beep();
+                    if (SettingsFrame.sound_effect_check.isSelected()) {
+                        Toolkit.getDefaultToolkit().beep();
+                    }
                     JOptionPane.showMessageDialog(this, "Sorry, exporting custom scale is currently not supported", "Error", JOptionPane.ERROR_MESSAGE);
                 } else if (!GPA_CALC.checkCourses()) {
-                    Toolkit.getDefaultToolkit().beep();
+                    if (SettingsFrame.sound_effect_check.isSelected()) {
+                        Toolkit.getDefaultToolkit().beep();
+                    }
                     JOptionPane.showMessageDialog(this, "Please finish empty grades and calculate before exporting", "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
                     try {
@@ -295,7 +303,9 @@ public class Frame extends JFrame {
                         writer.newLine();
                     }
                     Object message = "\"" + tabbedPane.getTitleAt(tabbedPane.getSelectedIndex()) + "\" was successfully exported to " + FILE_PATH;
-                    Toolkit.getDefaultToolkit().beep();
+                    if (SettingsFrame.sound_effect_check.isSelected()) {
+                        Toolkit.getDefaultToolkit().beep();
+                    }
                     JOptionPane.showMessageDialog(this, message, "Export Data", JOptionPane.INFORMATION_MESSAGE);
                 }
             } catch (IOException ex) {
@@ -317,7 +327,9 @@ public class Frame extends JFrame {
                     writer.newLine();
                 }
                 Object message = "\"" + tabbedPane.getTitleAt(tabbedPane.getSelectedIndex()) + "\" was successfully exported to " + FILE_PATH;
-                Toolkit.getDefaultToolkit().beep();
+                if (SettingsFrame.sound_effect_check.isSelected()) {
+                    Toolkit.getDefaultToolkit().beep();
+                }
                 JOptionPane.showMessageDialog(this, message, "Export Data", JOptionPane.INFORMATION_MESSAGE);
             } catch (IOException ex) {
             } finally {
@@ -382,7 +394,9 @@ public class Frame extends JFrame {
                     check = 1;
                     if (mode.equals("normal")) {
                         Object message = "\"" + tabbedPane.getTitleAt(tabbedPane.getSelectedIndex()) + "\" was successfully imported";
-                        Toolkit.getDefaultToolkit().beep();
+                        if (SettingsFrame.sound_effect_check.isSelected()) {
+                            Toolkit.getDefaultToolkit().beep();
+                        }
                         JOptionPane.showMessageDialog(this, message, "Import Data", JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
@@ -390,7 +404,9 @@ public class Frame extends JFrame {
         }
         if (check == 0 && mode.equals("normal")) {
             Object message = "No data file found, please place saved data files and this program in the same directory";
-            Toolkit.getDefaultToolkit().beep();
+            if (SettingsFrame.sound_effect_check.isSelected()) {
+                Toolkit.getDefaultToolkit().beep();
+            }
             JOptionPane.showMessageDialog(this, message, "Import Data", JOptionPane.ERROR_MESSAGE);
         } else if (check == 0 && mode.equals("startup")) {
             for (int i = 0; i < 2; i++) {

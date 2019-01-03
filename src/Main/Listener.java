@@ -27,7 +27,9 @@ public class Listener implements KeyListener, ActionListener {
             frame.add_tab(new Panel(), ("Term " + (Frame.tabbedPaneList.size() + 1)));
         } else if (command.equals(Frame.CLOSE_TAB)) {
             if (Frame.tabbedPaneList.size() == 1) {
-                Toolkit.getDefaultToolkit().beep();
+                if (SettingsFrame.sound_effect_check.isSelected()) {
+                    Toolkit.getDefaultToolkit().beep();
+                }
                 if (JOptionPane.showConfirmDialog(frame, "Are you sure to exit?", "Please Confirm", JOptionPane.YES_NO_OPTION) == 0) {
                     System.exit(0);
                 }
@@ -59,14 +61,20 @@ public class Listener implements KeyListener, ActionListener {
             try {
                 boolean complete = ((Panel) Frame.tabbedPane.getSelectedComponent()).getTimetable().print();
                 if (complete) {
-                    Toolkit.getDefaultToolkit().beep();
+                    if (SettingsFrame.sound_effect_check.isSelected()) {
+                        Toolkit.getDefaultToolkit().beep();
+                    }
                     JOptionPane.showMessageDialog(frame, "Printing Complete", "Printing Result", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    Toolkit.getDefaultToolkit().beep();
+                    if (SettingsFrame.sound_effect_check.isSelected()) {
+                        Toolkit.getDefaultToolkit().beep();
+                    }
                     JOptionPane.showMessageDialog(frame, "Printing Cancelled", "Printing Result", JOptionPane.INFORMATION_MESSAGE);
                 }
             } catch (PrinterException pe) {
-                Toolkit.getDefaultToolkit().beep();
+                if (SettingsFrame.sound_effect_check.isSelected()) {
+                    Toolkit.getDefaultToolkit().beep();
+                }
                 JOptionPane.showMessageDialog(frame, "Printing Failed: " + pe.getMessage(), "Printing Result", JOptionPane.ERROR_MESSAGE);
             }
         }

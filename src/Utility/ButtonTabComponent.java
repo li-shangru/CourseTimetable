@@ -32,6 +32,7 @@
 package Utility;
 
 import Main.Frame;
+import Main.SettingsFrame;
 
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicButtonUI;
@@ -117,7 +118,7 @@ public class ButtonTabComponent extends JPanel {
         public void actionPerformed(ActionEvent e) {
             int i = pane.indexOfTabComponent(ButtonTabComponent.this);
             if (i != -1) {
-                Toolkit.getDefaultToolkit().beep();
+                if (SettingsFrame.sound_effect_check.isSelected()){Toolkit.getDefaultToolkit().beep();}
                 if (Frame.tabbedPaneList.size() == 1){
                     JOptionPane.showMessageDialog(pane, "You cannot close the last tab ( ͡° ͜ʖ ͡°)","Oops!",JOptionPane.ERROR_MESSAGE);
                 }

@@ -16,16 +16,19 @@ public class SettingsFrame extends JDialog implements ActionListener {
     private static final String OK = "OK";
     private static final String CANCEL = "Cancel";
     private static final String SAVED_TAB_LOAD = "Load saved tabs on start up";
+    private static final String SOUND_EFFECT = "Enable sound effects";
     private static final String LIGHT = "Clear White";
     private static final String DARK = "Pure Black";
     private static final String CUSTOM = "Custom Color";
     public static Color themeColor = Color.WHITE;
     public static JCheckBox saved_tab_load = new JCheckBox(SAVED_TAB_LOAD);
+    public static JCheckBox sound_effect_check = new JCheckBox(SOUND_EFFECT);
     private static JRadioButton lightButton = new JRadioButton(LIGHT);
     private static JRadioButton darkButton = new JRadioButton(DARK);
     private static JRadioButton customButton = new JRadioButton(CUSTOM);
     private static JTable customColorTable;
     private static JTextField noticeText = new JTextField("Please restart application to take effect");
+
 
     public SettingsFrame() {
         super.setTitle("Settings");
@@ -53,8 +56,9 @@ public class SettingsFrame extends JDialog implements ActionListener {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String s = reader.readLine();
             String[] data = s.split("---");
-            saved_tab_load.setSelected(Boolean.valueOf(data[0]));
-            themeColor = new Color(Integer.parseInt(data[1]));
+            sound_effect_check.setSelected(Boolean.valueOf(data[0]));
+            saved_tab_load.setSelected(Boolean.valueOf(data[1]));
+            themeColor = new Color(Integer.parseInt(data[2]));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -96,10 +100,17 @@ public class SettingsFrame extends JDialog implements ActionListener {
         saved_tab_load.addActionListener(this);
         saved_tab_load.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 13));
 
+        sound_effect_check.setHorizontalAlignment(SwingConstants.RIGHT);
+        sound_effect_check.setActionCommand(SOUND_EFFECT);
+        sound_effect_check.addActionListener(this);
+        sound_effect_check.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 13));
+
+
         JTextField themeText = new JTextField("Choose an app theme");
         themeText.setEditable(false);
         themeText.setBorder(null);
         themeText.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 13));
+        themeText.setBackground(this.getBackground());
 
         lightButton.setActionCommand(LIGHT);
         lightButton.addActionListener(this);
@@ -137,10 +148,12 @@ public class SettingsFrame extends JDialog implements ActionListener {
         noticeText.setBorder(null);
         noticeText.setFont(new Font(Font.DIALOG, Font.ITALIC, 11));
         noticeText.setForeground(this.getBackground());
+        noticeText.setBackground(this.getBackground());
 
         layout.setHorizontalGroup(
                 layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                .addComponent(sound_effect_check)
                                 .addComponent(saved_tab_load)
                                 .addComponent(themeText)
                                 .addComponent(lightButton)
@@ -151,6 +164,7 @@ public class SettingsFrame extends JDialog implements ActionListener {
         );
         layout.setVerticalGroup(
                 layout.createSequentialGroup()
+                        .addComponent(sound_effect_check)
                         .addComponent(saved_tab_load)
                         .addGap(10)
                         .addComponent(themeText)
@@ -209,7 +223,7 @@ public class SettingsFrame extends JDialog implements ActionListener {
             }
             try {
                 writer = new BufferedWriter(new FileWriter(file));
-                writer.write(saved_tab_load.isSelected() + "---" + themeColor.getRGB());
+                writer.write(sound_effect_check.isSelected() + "---" + saved_tab_load.isSelected() + "---" + themeColor.getRGB());
                 writer.newLine();
             } catch (IOException ex) {
             } finally {
@@ -246,7 +260,8 @@ public class SettingsFrame extends JDialog implements ActionListener {
             if (noticeText.getForeground().equals(this.getBackground())) {
                 noticeText.setForeground(Color.RED);
             }
-        }
+        } else if (command.equals(SOUND_EFFECT)) {
 
+        }
     }
 }

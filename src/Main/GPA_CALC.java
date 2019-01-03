@@ -114,7 +114,6 @@ public class GPA_CALC extends JPanel implements ActionListener {
             scaletable = new JTable(scaleTable);
             table = scaletable;
             JScrollPane scaletable_scrollPane = new JScrollPane(scaletable);
-            TableColumn column = null;
             JTableHeader tableHeader = scaletable.getTableHeader();
             DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 
@@ -239,6 +238,7 @@ public class GPA_CALC extends JPanel implements ActionListener {
             tableHeader.setResizingAllowed(false);
             tableHeader.setReorderingAllowed(false);
 
+            TableColumn column;
             for (int i = 0; i < Scaletable.columnNames.length; i++) {
                 column = table.getColumnModel().getColumn(i);
                 if (i == 1) {
