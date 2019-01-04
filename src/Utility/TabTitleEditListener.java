@@ -87,17 +87,23 @@ public class TabTitleEditListener extends MouseAdapter implements ChangeListener
         int tab = tabbedPane.getSelectedIndex();
         JComponent currentComponent = Main.Frame.tabbedPaneList.get(tab);
         if (currentComponent.getClass().equals(Panel.class)) {
-            Frame.ExportTab.setVisible(true);
-            Frame.ImportTab.setVisible(true);
+            if (OSValidator.isWindows()) {
+                Frame.ExportTab.setVisible(true);
+                Frame.ImportTab.setVisible(true);
+            }
             Frame.PrintTab.setVisible(true);
             ((Panel) currentComponent).getCourse().updateTable();
         } else if (currentComponent.getClass().equals(GPA_CALC.class)) {
-            Frame.ExportTab.setVisible(true);
-            Frame.ImportTab.setVisible(true);
+            if (OSValidator.isWindows()) {
+                Frame.ExportTab.setVisible(true);
+                Frame.ImportTab.setVisible(true);
+            }
             Frame.PrintTab.setVisible(false);
         } else {
-            Frame.ExportTab.setVisible(false);
-            Frame.ImportTab.setVisible(false);
+            if (OSValidator.isWindows()) {
+                Frame.ExportTab.setVisible(false);
+                Frame.ImportTab.setVisible(false);
+            }
             Frame.PrintTab.setVisible(false);
         }
         for (int i = 0; i < Main.Frame.tabbedPaneList.size(); i++) {

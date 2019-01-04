@@ -113,6 +113,7 @@ public class GPA_CALC extends JPanel implements ActionListener {
             scaleTable = new Scaletable(Scaletable.gpa_scale);
             scaletable = new JTable(scaleTable);
             table = scaletable;
+            table.setGridColor(Color.GRAY);
             JScrollPane scaletable_scrollPane = new JScrollPane(scaletable);
             JTableHeader tableHeader = scaletable.getTableHeader();
             DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -256,6 +257,7 @@ public class GPA_CALC extends JPanel implements ActionListener {
         else if (name == "Coursetable") {
             JScrollPane coursetable_scrollPane = new JScrollPane(coursetable);
             JPanel rightHalf = new JPanel(new BorderLayout());
+            table.setGridColor(Color.GRAY);
 
             JButton addCourseButton = new JButton("Add Course");
             addCourseButton.addActionListener(this);

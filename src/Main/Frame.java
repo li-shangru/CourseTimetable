@@ -1,6 +1,7 @@
 package Main;
 
 import Utility.ButtonTabComponent;
+import Utility.OSValidator;
 import Utility.TabTitleEditListener;
 
 import javax.swing.*;
@@ -198,10 +199,12 @@ public class Frame extends JFrame {
 
         Option.add(NewTab);
         Option.add(CloseTab);
-        Option.add(ExportTab);
-        Option.add(ImportTab);
-        Option.addSeparator();
-        Option.add(Settings);
+        if (OSValidator.isWindows()) {
+            Option.add(ExportTab);
+            Option.add(ImportTab);
+            Option.addSeparator();
+            Option.add(Settings);
+        }
         Option.addSeparator();
         Option.add(Exit);
 

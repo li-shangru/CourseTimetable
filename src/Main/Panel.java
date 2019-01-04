@@ -44,6 +44,7 @@ public class Panel extends JPanel implements ActionListener {
         table.setRowSelectionAllowed(false);
         table.setForeground(SettingsFrame.getContrastColor(SettingsFrame.themeColor));
         table.setBackground(SettingsFrame.themeColor.brighter());
+        table.setGridColor(Color.GRAY);
 
         if (name.equals("Timetable")) {
             JScrollPane timetable_scrollPane = new JScrollPane(timetable);
