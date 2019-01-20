@@ -4,5 +4,5 @@
 Folder _\application_ contains compiled versions and sample tabs.\
 Please place the application and tab data in the same folder to import.
 
-_Images are rendered using Blender._
+_Images are rendered using Blender._\
 _Note: Currently works only on Windows operation system._
