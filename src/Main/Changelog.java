@@ -14,8 +14,8 @@ public class Changelog extends JPanel {
             "Version: 1.0   (2018-06-18)\nInitial release version\n\n" +
                     "Version: 1.1   (2018-09-03)\nNew GPA scale\nNew Conformation Boxes\nExport&Import for GPA Calculator\nVarious bug fixes\n\n" +
                     "Version: 1.2   (2018-11-09)\nMinor improvements\n\n" +
-                    "Version: 1.3   (2018-12-22)\nNew settings panel\nNew theme option\nNew start-up option\nUI improvements\nNew Print function" +
-                    "Version: 1.4   (2019-01-20)\nNew option to enable/disable sound effects\nOptimization\nBug fixes";
+                    "Version: 1.3   (2018-12-22)\nNew settings panel\nNew theme option\nNew start-up option\nUI improvements\nNew Print function\n\n" +
+                    "Version: 1.4   (2019-01-20)\nNew sound effect option \nOptimization\nBug fixes";
     private final String acknowledgments =
             "Thank you for using CourseTimetable.          " +
                     "CourseTimetable is an application by Shangru Li          " +
