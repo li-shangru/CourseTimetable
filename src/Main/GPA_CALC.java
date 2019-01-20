@@ -357,6 +357,26 @@ public class GPA_CALC extends JPanel implements ActionListener {
     // ================================================================================
 
     private void CalcGPA() {
+        // Update table value
+        courseList.clear();
+        for (int i = 0; i < courseTable.getRowCount(); i++) {
+            String name = (String) coursetable.getValueAt(i, 0);
+            double credits = (Double) coursetable.getValueAt(i, 1);
+            String grade = (String) coursetable.getValueAt(i, 2);
+            if (name != null) {
+                if (name.length() == 0) {
+                    name = null;
+                }
+            }
+            if (grade != null) {
+                if (grade.length() == 0) {
+                    grade = null;
+                }
+            }
+            courseList.add(new GPA_Course(name, credits, grade));
+        }
+
+        // Calculate GPA
         courseTable.updateGrades(scaleTable);
         double Total_Credits = 0;
         double Total_Grade = 0;

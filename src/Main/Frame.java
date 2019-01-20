@@ -165,7 +165,6 @@ public class Frame extends JFrame {
             // Cast the component as GPA_CALC
             GPA_CALC pane = (GPA_CALC) component;
             // Basic setup is the same as above
-            // TODO: optimization?
             tabbedPaneList.add(pane);
             tabbedPane.addTab(title, pane);
             tabbedPane.setTabComponentAt(tabbedPaneList.size() - 1, new ButtonTabComponent(tabbedPane));
@@ -315,7 +314,7 @@ public class Frame extends JFrame {
 
     // Method to export the current active tab as a `.txt` file
     public void exportData(String FILE_PATH) {
-        // TODO: Detect OS, GPA_CALC calculate before export
+
         // For windowns only
         BufferedWriter writer = null;
         File file = new File(FILE_PATH);
@@ -394,7 +393,7 @@ public class Frame extends JFrame {
                 for (int i = 0; i < Courses.getCourseList().size(); i++) {
                     Courses course = Courses.getCourseList().get(i);
                     writer.write(course.getName() + "---" + course.getType() + "---" + course.getDay() + "---" + course.getStartTime() + "---" + course.getDuration() + "---" + course.
-                            getLocation() + "---" + course.getNote() + "---" + course.getInstructor() + "---" + course.getSection() + "---" + course.getCredits() + "---" + course.getColor().getRGB());
+                            getLocation() + "---" + course.getInstructor() + "---" + course.getSection() + "---" + course.getCredits() + "---" + course.getNote() + "---" + course.getColor().getRGB());
                     writer.newLine();
                 }
                 Object message = "\"" + tabbedPane.getTitleAt(tabbedPane.getSelectedIndex()) + "\" was successfully exported to " + FILE_PATH;
@@ -463,8 +462,8 @@ public class Frame extends JFrame {
                         while ((s = reader.readLine()) != null) {
                             String[] data = s.split("---");
                             Color color = new Color(Integer.parseInt(data[10]));
-                            Courses course = new Courses(data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8], Double.parseDouble(data[9]), color);
-                            course = panel.getCourse().revalidate(course);
+                            Courses course = new Courses(data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], Double.parseDouble(data[8]), data[9], color);
+                            course = panel.getCourse().validate_course(course);
                             panel.getCourse().add_course(course);
                             panel.getCourse().add_row(course);
                         }

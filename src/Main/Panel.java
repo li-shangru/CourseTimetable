@@ -186,17 +186,23 @@ public class Panel extends JPanel implements ActionListener {
                     DurcomboBox.setBackground(SettingsFrame.themeColor);
                     column.setCellEditor(new DefaultCellEditor(DurcomboBox));
                 } else if (i == 5) {
+                    // location
                     column.setPreferredWidth(20);
                 } else if (i == 6) {
-                    column.setPreferredWidth(20);
+                    // instructor
+                    column.setPreferredWidth(30);
                 } else if (i == 7) {
-                    column.setPreferredWidth(50);
-                } else if (i == 8) {
+                    // section
                     column.setPreferredWidth(5);
-                } else if (i == 9) {
+                } else if (i == 8) {
+                    // credits
                     column.setCellEditor(new NumEditor(0, 100));
                     column.setPreferredWidth(5);
+                } else if (i == 9) {
+                    // note
+                    column.setPreferredWidth(30);
                 } else if (i == 10) {
+                    // color
                     column.setPreferredWidth(10);
                 }
 
@@ -320,7 +326,7 @@ public class Panel extends JPanel implements ActionListener {
     // ================================================================================
 
     public static class Coursetable extends DefaultTableModel {
-        public static final String[] columnNames = {"Name", "Type", "Day", "Start Time", "Duration", "Location", "Cat #", "Instructor", "Section", "Credits", "Colour"};
+        public static final String[] columnNames = {"Name", "Type", "Day", "Start Time", "Duration", "Location", "Instructor", "Section", "Credits", "Note", "Colour"};
 
         public Coursetable() {
             super(columnNames, 0);
@@ -337,7 +343,7 @@ public class Panel extends JPanel implements ActionListener {
         }
 
         public void add_defaultRow() {
-            addRow(new Courses(null, null, null, null, null, null, null, null, null, 0, Color.WHITE));
+            addRow(new Courses(null, null, null, null, null, null, null, null, 0, null, Color.WHITE));
         }
 
         public void addRow(Courses rowData) {
@@ -351,10 +357,10 @@ public class Panel extends JPanel implements ActionListener {
             rowVector.add(rowData.getStartTime());
             rowVector.add(rowData.getDuration());
             rowVector.add(rowData.getLocation());
-            rowVector.add(rowData.getCat());
             rowVector.add(rowData.getInstructor());
             rowVector.add(rowData.getSection());
             rowVector.add(rowData.getCredits());
+            rowVector.add(rowData.getNote());
             rowVector.add(rowData.getColor());
             super.addRow(rowVector);
         }

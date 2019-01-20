@@ -19,10 +19,10 @@ public class Courses {
     private String startTime = null;
     private String duration = null;
     private String location = null;
-    private String cat = null;
     private String instructor = null;
     private String section = null;
     private double credits = 0;
+    private String note = null;
     private Color color = Color.WHITE;
 
     // ================================================================================
@@ -33,23 +33,23 @@ public class Courses {
         this.timetable = panel.getTimetable();
         courseList = new ArrayList<Courses>();
         if (!Frame.importing) {
-            add_course(new Courses(null, null, null, null, null, null, null, null, null, 0, Color.WHITE));
+            add_course(new Courses(null, null, null, null, null, null, null, null, 0, null, Color.WHITE));
         }
     }
 
     // ================================================================================
 
-    public Courses(String name, String type, String day, String startTime, String duration, String location, String cat, String instructor, String section, double credits, Color color) {
+    public Courses(String name, String type, String day, String startTime, String duration, String location, String instructor, String section, double credits, String note, Color color) {
         this.name = name;
         this.type = type;
         this.day = day;
         this.startTime = startTime;
         this.duration = duration;
         this.location = location;
-        this.cat = cat;
         this.instructor = instructor;
         this.section = section;
         this.credits = credits;
+        this.note = note;
         this.color = color;
     }
 
@@ -225,14 +225,6 @@ public class Courses {
         this.location = location;
     }
 
-    public String getCat() {
-        return cat;
-    }
-
-    public void setCat(String cat) {
-        this.cat = cat;
-    }
-
     public String getInstructor() {
         return instructor;
     }
@@ -257,6 +249,14 @@ public class Courses {
         this.credits = credits;
     }
 
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
     public Color getColor() {
         return color;
     }
@@ -274,59 +274,13 @@ public class Courses {
         String new_startTime = (String) coursetable.getValueAt(i, 3);
         String new_duration = (String) coursetable.getValueAt(i, 4);
         String new_location = (String) coursetable.getValueAt(i, 5);
-        String new_cat = (String) coursetable.getValueAt(i, 6);
-        String new_instructor = (String) coursetable.getValueAt(i, 7);
-        String new_section = (String) coursetable.getValueAt(i, 8);
-        double new_credits = (double) coursetable.getValueAt(i, 9);
+        String new_instructor = (String) coursetable.getValueAt(i, 6);
+        String new_section = (String) coursetable.getValueAt(i, 7);
+        double new_credits = (double) coursetable.getValueAt(i, 8);
+        String new_note = (String) coursetable.getValueAt(i, 9);
         Color new_color = (Color) coursetable.getValueAt(i, 10);
 
-        if (new_name != null) {
-            if (new_name.isEmpty()) {
-                new_name = null;
-            }
-        }
-        if (new_type != null) {
-            if (new_type.isEmpty()) {
-                new_type = null;
-            }
-        }
-        if (new_day != null) {
-            if (new_day.isEmpty()) {
-                new_day = null;
-            }
-        }
-        if (new_startTime != null) {
-            if (new_startTime.isEmpty()) {
-                new_startTime = null;
-            }
-        }
-        if (new_duration != null) {
-            if (new_duration.isEmpty()) {
-                new_duration = null;
-            }
-        }
-        if (new_location != null) {
-            if (new_location.isEmpty()) {
-                new_location = null;
-            }
-        }
-        if (new_cat != null) {
-            if (new_cat.isEmpty()) {
-                new_cat = null;
-            }
-        }
-        if (new_instructor != null) {
-            if (new_instructor.isEmpty()) {
-                new_instructor = null;
-            }
-        }
-        if (new_section != null) {
-            if (new_section.isEmpty()) {
-                new_section = null;
-            }
-        }
-        Courses newcourse = new Courses(new_name, new_type, new_day, new_startTime, new_duration, new_location, new_cat, new_instructor, new_section, new_credits, new_color);
-        return newcourse;
+        return validate_course(new Courses(new_name, new_type, new_day, new_startTime, new_duration, new_location, new_instructor, new_section, new_credits, new_note, new_color));
     }
 
     public void setCourse(Courses newCourse) {
@@ -336,80 +290,86 @@ public class Courses {
         this.startTime = newCourse.getStartTime();
         this.duration = newCourse.getDuration();
         this.location = newCourse.getLocation();
-        this.cat = newCourse.getCat();
         this.instructor = newCourse.getInstructor();
         this.section = newCourse.getSection();
         this.credits = newCourse.getCredits();
+        this.note = newCourse.getNote();
         this.color = newCourse.getColor();
     }
 
-    public Courses revalidate(Courses course) {
+    public Courses validate_course(Courses course) {
         String new_name = course.getName();
         String new_type = course.getType();
         String new_day = course.getDay();
         String new_startTime = course.getStartTime();
         String new_duration = course.getDuration();
         String new_location = course.getLocation();
-        String new_cat = course.getCat();
         String new_instructor = course.getInstructor();
         String new_section = course.getSection();
+        String new_note = course.getNote();
 
-        if (new_name.contains("null")) {
-            new_name = null;
+        if (new_name != null) {
+            if (new_name.isEmpty() || new_name.contains("null")) {
+                new_name = null;
+            }
         }
-        if (new_type.contains("null")) {
-            new_type = null;
+        if (new_type != null) {
+            if (new_type.isEmpty() || new_type.contains("null")) {
+                new_type = null;
+            }
         }
-        if (new_day.contains("null")) {
-            new_day = null;
+        if (new_day != null) {
+            if (new_day.isEmpty() || new_day.contains("null")) {
+                new_day = null;
+            }
         }
-        if (new_startTime.contains("null")) {
-            new_startTime = null;
+        if (new_startTime != null) {
+            if (new_startTime.isEmpty() || new_startTime.contains("null")) {
+                new_startTime = null;
+            }
         }
-        if (new_duration.contains("null")) {
-            new_duration = null;
+        if (new_duration != null) {
+            if (new_duration.isEmpty() || new_duration.contains("null")) {
+                new_duration = null;
+            }
         }
-        if (new_location.contains("null")) {
-            new_location = null;
+        if (new_location != null) {
+            if (new_location.isEmpty() || new_location.contains("null")) {
+                new_location = null;
+            }
         }
-        if (new_cat.contains("null")) {
-            new_cat = null;
+        if (new_instructor != null) {
+            if (new_instructor.isEmpty() || new_instructor.contains("null")) {
+                new_instructor = null;
+            }
         }
-        if (new_instructor.contains("null")) {
-            new_instructor = null;
+        if (new_section != null) {
+            if (new_section.isEmpty() || new_section.contains("null")) {
+                new_section = null;
+            }
         }
-        if (new_section.contains("null")) {
-            new_section = null;
+        if (new_note != null) {
+            if (new_note.isEmpty() || new_note.contains("null")) {
+                new_note = null;
+            }
         }
-        return new Courses(new_name, new_type, new_day, new_startTime, new_duration, new_location, new_cat, new_instructor, new_section, course.getCredits(), course.getColor());
+        return new Courses(new_name, new_type, new_day, new_startTime, new_duration, new_location, new_instructor, new_section, course.getCredits(), new_note, course.getColor());
     }
 
     public void add_row(Courses course) {
-        String new_name = course.getName();
-        String new_type = course.getType();
-        String new_day = course.getDay();
-        String new_startTime = course.getStartTime();
-        String new_duration = course.getDuration();
-        String new_location = course.getLocation();
-        String new_cat = course.getCat();
-        String new_instructor = course.getInstructor();
-        String new_section = course.getSection();
-        double new_credits = course.getCredits();
-        Color new_color = course.getColor();
-
         DefaultTableModel model = (DefaultTableModel) coursetable.getModel();
         Vector<Object> rowVector = new Vector<>();
-        rowVector.add(new_name);
-        rowVector.add(new_type);
-        rowVector.add(new_day);
-        rowVector.add(new_startTime);
-        rowVector.add(new_duration);
-        rowVector.add(new_location);
-        rowVector.add(new_cat);
-        rowVector.add(new_instructor);
-        rowVector.add(new_section);
-        rowVector.add(new_credits);
-        rowVector.add(new_color);
+        rowVector.add(course.getName());
+        rowVector.add(course.getType());
+        rowVector.add(course.getDay());
+        rowVector.add(course.getStartTime());
+        rowVector.add(course.getDuration());
+        rowVector.add(course.getLocation());
+        rowVector.add(course.getInstructor());
+        rowVector.add(course.getSection());
+        rowVector.add(course.getCredits());
+        rowVector.add(course.getNote());
+        rowVector.add(course.getColor());
         model.addRow(rowVector);
     }
 
@@ -439,63 +399,7 @@ public class Courses {
     public void updateTable() {
         courseList.clear();
         for (int i = 0; i < coursetable.getRowCount(); i++) {
-            String name = (String) coursetable.getValueAt(i, 0);
-            String type = (String) coursetable.getValueAt(i, 1);
-            String day = (String) coursetable.getValueAt(i, 2);
-            String startTime = (String) coursetable.getValueAt(i, 3);
-            String duration = (String) coursetable.getValueAt(i, 4);
-            String location = (String) coursetable.getValueAt(i, 5);
-            String cat = (String) coursetable.getValueAt(i, 6);
-            String instructor = (String) coursetable.getValueAt(i, 7);
-            String section = (String) coursetable.getValueAt(i, 8);
-            double credits = (Double) coursetable.getValueAt(i, 9);
-            Color color = (Color) coursetable.getValueAt(i, 10);
-            if (name != null) {
-                if (name.length() == 0) {
-                    name = null;
-                }
-            }
-            if (type != null) {
-                if (type.length() == 0) {
-                    type = null;
-                }
-            }
-            if (day != null) {
-                if (day.length() == 0) {
-                    day = null;
-                }
-            }
-            if (startTime != null) {
-                if (startTime.length() == 0) {
-                    startTime = null;
-                }
-            }
-            if (duration != null) {
-                if (duration.length() == 0) {
-                    duration = null;
-                }
-            }
-            if (location != null) {
-                if (location.length() == 0) {
-                    location = null;
-                }
-            }
-            if (cat != null) {
-                if (cat.length() == 0) {
-                    cat = null;
-                }
-            }
-            if (instructor != null) {
-                if (instructor.length() == 0) {
-                    instructor = null;
-                }
-            }
-            if (section != null) {
-                if (section.length() == 0) {
-                    section = null;
-                }
-            }
-            courseList.add(new Courses(name, type, day, startTime, duration, location, cat, instructor, section, credits, color));
+            courseList.add(getCourseFromRow(i));
         }
         paint_table();
     }

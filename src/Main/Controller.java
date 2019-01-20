@@ -25,8 +25,8 @@ public class Controller {
         DefaultTableModel model = (DefaultTableModel) coursetable.getModel();
 
         if (actionName.equals("AddCourse")) {
-            course.add_course(new Courses(null, null, null, null, null, null, null, null, null, 0, Color.WHITE));
-            course.add_row(new Courses(null, null, null, null, null, null, null, null, null, 0, Color.WHITE));
+            course.add_course(new Courses(null, null, null, null, null, null, null, null, 0, null, Color.WHITE));
+            course.add_row(new Courses(null, null, null, null, null, null, null, null, 0, null, Color.WHITE));
             course.updateTable();
         }
 
@@ -40,7 +40,7 @@ public class Controller {
             } else if (coursetable.getRowCount() == 1) {
                 Courses.getCourseList().clear();
                 course.paint_table();
-                course.add_row(new Courses(null, null, null, null, null, null, null, null, null, 0, Color.WHITE));
+                course.add_row(new Courses(null, null, null, null, null, null, null, null, 0, null, Color.WHITE));
                 model.removeRow(0);
             }
             course.updateTable();
@@ -60,7 +60,7 @@ public class Controller {
         // ================================================================================
 
         else if (actionName.equals("MoveUp")) {
-            if (row_Is_Selected == false) {
+            if (!row_Is_Selected) {
                 row_Is_Selected = true;
             }
             index = coursetable.getSelectedRow();
@@ -74,7 +74,7 @@ public class Controller {
         // ================================================================================
 
         else if (actionName.equals("MoveDown")) {
-            if (row_Is_Selected == false) {
+            if (!row_Is_Selected) {
                 row_Is_Selected = true;
             }
             index = coursetable.getSelectedRow();
