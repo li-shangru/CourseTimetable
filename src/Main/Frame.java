@@ -314,7 +314,7 @@ public class Frame extends JFrame {
 
     // Method to export the current active tab as a `.txt` file
     public void exportData(String FILE_PATH) {
-
+        Boolean result = false;
         // For windowns only
         BufferedWriter writer = null;
         File file = new File(FILE_PATH);
@@ -341,11 +341,6 @@ public class Frame extends JFrame {
                         Toolkit.getDefaultToolkit().beep();
                     }
                     JOptionPane.showMessageDialog(this, "Sorry, exporting custom scale is currently not supported", "Error", JOptionPane.ERROR_MESSAGE);
-                } else if (!GPA_CALC.checkCourses()) {
-                    if (SettingsFrame.sound_effect_check.isSelected()) {
-                        Toolkit.getDefaultToolkit().beep();
-                    }
-                    JOptionPane.showMessageDialog(this, "Please finish empty grades and calculate before exporting", "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
                     // Precondition passed, preceded to export file
                     try {
@@ -362,18 +357,16 @@ public class Frame extends JFrame {
                     writer.newLine();
                     writer.write(GPA_CALC.selected_index);
                     writer.newLine();
+                    // Update grades
+                    GPA_CALC gpa_calc = (GPA_CALC) tabbedPaneList.get(tabbedPane.getSelectedIndex());
+                    gpa_calc.CalcGPA();
                     // Iteratively go through the course list, write the necessary information separated by `---`
                     for (int i = 0; i < GPA_CALC.courseList.size(); i++) {
                         GPA_CALC.GPA_Course course = GPA_CALC.courseList.get(i);
                         writer.write(course.getName() + "---" + course.getCredits() + "---" + course.getGrade());
                         writer.newLine();
                     }
-                    // Display the successful completion message
-                    Object message = "\"" + tabbedPane.getTitleAt(tabbedPane.getSelectedIndex()) + "\" was successfully exported to " + FILE_PATH;
-                    if (SettingsFrame.sound_effect_check.isSelected()) {
-                        Toolkit.getDefaultToolkit().beep();
-                    }
-                    JOptionPane.showMessageDialog(this, message, "Export Data", JOptionPane.INFORMATION_MESSAGE);
+                    result = true;
                 }
                 // Exception handler in case we cannot write file
             } catch (IOException ex) {
@@ -396,11 +389,7 @@ public class Frame extends JFrame {
                             getLocation() + "---" + course.getInstructor() + "---" + course.getSection() + "---" + course.getCredits() + "---" + course.getNote() + "---" + course.getColor().getRGB());
                     writer.newLine();
                 }
-                Object message = "\"" + tabbedPane.getTitleAt(tabbedPane.getSelectedIndex()) + "\" was successfully exported to " + FILE_PATH;
-                if (SettingsFrame.sound_effect_check.isSelected()) {
-                    Toolkit.getDefaultToolkit().beep();
-                }
-                JOptionPane.showMessageDialog(this, message, "Export Data", JOptionPane.INFORMATION_MESSAGE);
+                result = true;
             } catch (IOException ex) {
             } finally {
                 try {
@@ -409,7 +398,20 @@ public class Frame extends JFrame {
                 }
             }
         }
-
+        // Display the output result message
+        if (result) {
+            Object message = "\"" + tabbedPane.getTitleAt(tabbedPane.getSelectedIndex()) + "\" was successfully exported to " + FILE_PATH;
+            if (SettingsFrame.sound_effect_check.isSelected()) {
+                Toolkit.getDefaultToolkit().beep();
+            }
+            JOptionPane.showMessageDialog(this, message, "Export Data", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            Object message = "Export failed";
+            if (SettingsFrame.sound_effect_check.isSelected()) {
+                Toolkit.getDefaultToolkit().beep();
+            }
+            JOptionPane.showMessageDialog(this, message, "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     // Method to import all saved tab files in the same folder as this application

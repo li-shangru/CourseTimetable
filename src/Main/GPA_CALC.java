@@ -356,13 +356,13 @@ public class GPA_CALC extends JPanel implements ActionListener {
 
     // ================================================================================
 
-    private void CalcGPA() {
+    public void CalcGPA() {
         // Update table value
         courseList.clear();
         for (int i = 0; i < courseTable.getRowCount(); i++) {
-            String name = (String) coursetable.getValueAt(i, 0);
-            double credits = (Double) coursetable.getValueAt(i, 1);
-            String grade = (String) coursetable.getValueAt(i, 2);
+            String name = (String) courseTable.getValueAt(i, 0);
+            double credits = (Double) courseTable.getValueAt(i, 1);
+            String grade = (String) courseTable.getValueAt(i, 2);
             if (name != null) {
                 if (name.length() == 0) {
                     name = null;
@@ -924,6 +924,10 @@ public class GPA_CALC extends JPanel implements ActionListener {
             super.addRow(rowVector);
 
             courseList.add(rowData);
+        }
+
+        public Coursetable getCoursetable() {
+            return this;
         }
 
         public int getColumnCount() {
