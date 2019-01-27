@@ -30,6 +30,7 @@ public class SettingsFrame extends JDialog implements ActionListener {
     private static JTextField noticeText = new JTextField("Please restart application to take effect");
 
 
+    // TODO: change font size
     public SettingsFrame() {
         super.setTitle("Settings");
         super.setModal(true);
