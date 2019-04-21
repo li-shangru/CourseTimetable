@@ -60,6 +60,7 @@ public class SettingsFrame extends JDialog implements ActionListener {
             sound_effect_check.setSelected(Boolean.valueOf(data[0]));
             saved_tab_load.setSelected(Boolean.valueOf(data[1]));
             themeColor = new Color(Integer.parseInt(data[2]));
+            reader.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

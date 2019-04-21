@@ -19,14 +19,8 @@ public class CustomTableCellRenderer extends DefaultTableCellRenderer {
         c.setForeground(table.getForeground());
         c.setBackground(table.getBackground());
 
-        if (column == 0) {
-            c.setFont(new Font("Time", Font.PLAIN, 12));
-        } else if (c.getText().equals("CONFILT!")) {
-            c.setFont(new Font(Font.DIALOG, Font.BOLD, 14));
+        if (c.getText().equals("CONFILT!")) {
             c.setBackground(Color.RED);
-        }
-        if (table == null) {
-            return this;
         }
 
         Color fg = null;
