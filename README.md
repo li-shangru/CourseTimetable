@@ -13,6 +13,6 @@ To import sample tabs, place the files in the same directory as the application.
 
 ## Screenshots
 
-![A wikipedia page](/application/images/screenshots/empty_tab.png)|![A wikipedia page](/application/images/screenshots/empty_tab_dark.png)
+![empty tab screenshot](/application/images/screenshots/empty_tab.png)|![empty tab dark mode screenshot](/application/images/screenshots/empty_tab_dark.png)
 --- | ---
-![A wikipedia page](/application/images/screenshots/gpa_calc.png)|![A wikipedia page](/application/images/screenshots/sample_tab.png)
+![gpa calculator screenshot](/application/images/screenshots/gpa_calc.png)|![sample tab screenshot page](/application/images/screenshots/sample_tab.png)

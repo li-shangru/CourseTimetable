@@ -34,7 +34,9 @@ public class Listener implements KeyListener, ActionListener {
                     System.exit(0);
                 }
             } else {
-                Frame.remove_tab(Frame.tabbedPane.getSelectedIndex());
+                if (frame.checkSaved()) {
+                    Frame.remove_tab(Frame.tabbedPane.getSelectedIndex());
+                }
             }
         } else if (command.equals(Frame.EXPORT)) {
             String file = FILE_PATH + Frame.tabbedPane.getTitleAt(Frame.tabbedPane.getSelectedIndex()) + ".txt";

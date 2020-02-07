@@ -164,7 +164,7 @@ public class Panel extends JPanel implements ActionListener {
                     column.setPreferredWidth(5);
                 } else if (i == 2) {
                     column.setPreferredWidth(35);
-                    String[] Strings = {null, "Monday(M)", "Tuesday(T)", "Wednesday(W)", "Thrusday(R)", "Friday(F)"};
+                    String[] Strings = {null, "Monday(M)", "Tuesday(T)", "Wednesday(W)", "Thursday(R)", "Friday(F)"};
                     JComboBox<String> DaycomboBox = new JComboBox<String>(Strings);
                     DaycomboBox.setForeground(SettingsFrame.getContrastColor(SettingsFrame.themeColor));
                     DaycomboBox.setBackground(SettingsFrame.themeColor);

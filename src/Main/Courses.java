@@ -140,7 +140,7 @@ public class Courses {
             return 2;
         } else if (dayString.equals("Wednesday(W)")) {
             return 3;
-        } else if (dayString.equals("Thrusday(R)")) {
+        } else if (dayString.equals("Thursday(R)")) {
             return 4;
         } else if (dayString.equals("Friday(F)")) {
             return 5;
@@ -423,7 +423,7 @@ public class Courses {
             if (dur != -1 && row != -1 && col != -1 && course.getName() != null && checkTime(row, dur)) {
                 for (int j = 0; j < dur + 1; j++) {
                     if (timetable.getValueAt(row + j, col) != " ") {
-                        timetable.setValueAt("CONFILT!", row + j, col);
+                        timetable.setValueAt("CONFLICT!", row + j, col);
                     } else {
                         if (dur <= 2) {
                             offset = 0;

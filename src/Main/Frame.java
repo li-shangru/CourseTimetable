@@ -246,12 +246,12 @@ public class Frame extends JFrame {
         Option.add(NewTab);
         Option.add(CloseTab);
         // TODO: implement following functions for Mac OS
-        if (OSValidator.isWindows()) {
+        // if (OSValidator.isWindows()) {
             Option.add(ExportTab);
             Option.add(ImportTab);
             Option.addSeparator();
             Option.add(Settings);
-        }
+        // }
         Option.addSeparator();
         Option.add(Exit);
 
@@ -312,7 +312,7 @@ public class Frame extends JFrame {
     // Method to export the current active tab as a `.txt` file
     public void exportData(String FILE_PATH) {
         Boolean result = false;
-        // For windowns only
+        // For windows only
         BufferedWriter writer = null;
         File file = new File(FILE_PATH);
         // Check for existed file
@@ -495,5 +495,18 @@ public class Frame extends JFrame {
                 add_tab(pane, title);
             }
         }
+    }
+
+    // Method to check if the tab data has been saved
+    public boolean checkSaved() {
+        File file = new File(FILE_PATH);
+        // Check for existed file
+        if (file.exists()) {
+
+        }
+        else {
+            return false;
+        }
+
     }
 }
