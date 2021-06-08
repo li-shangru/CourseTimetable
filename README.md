@@ -1,5 +1,9 @@
 # CourseTimetable
 
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/MaxsLi/CourseTimetable)
+![GitHub all releases](https://img.shields.io/github/downloads/MaxsLi/CourseTimetable/total)
+![GitHub](https://img.shields.io/github/license/MaxsLi/CourseTimetable)
+
 ## Introduction
 
 Course Timetable is an application to help students to arrange and visualize their timetable, the layout of this application is based on York University's courses web site.  
