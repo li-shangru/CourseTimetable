@@ -1,8 +1,8 @@
 # CourseTimetable
 
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/MaxsLi/CourseTimetable)
-![GitHub all releases](https://img.shields.io/github/downloads/MaxsLi/CourseTimetable/total)
-![GitHub](https://img.shields.io/github/license/MaxsLi/CourseTimetable)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/li-shangru/CourseTimetable)
+![GitHub all releases](https://img.shields.io/github/downloads/li-shangru/CourseTimetable/total)
+![GitHub](https://img.shields.io/github/license/li-shangru/CourseTimetable)
 
 ## Introduction
 
